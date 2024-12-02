@@ -20,32 +20,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Form elements find
+
         val etName = findViewById<EditText>(R.id.etName)
         val etPhone = findViewById<EditText>(R.id.etPhone)
-        val cbAvailable = findViewById<CheckBox>(R.id.cbAvailable)
+        val cbStatus = findViewById<CheckBox>(R.id.cbStatus)
 
         val addButton = findViewById<Button>(R.id.addButton)
         addButton.setOnClickListener {
             val name = etName.text.toString()
             val phone = etPhone.text.toString()
-            val status = if (cbAvailable.isChecked) "Available" else "Busy"
+            val status = cbStatus.isChecked
 
             if (name.isBlank() || phone.isBlank()) {
                 Toast.makeText(this, "Please enter name and phone", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Create the contact object
+
             val contact = Contact(name, phone, status)
-            // Add the contact to the list
             contactList.add(contact)
 
-            // Notify the adapter that the item was inserted
             adapter.notifyItemInserted(contactList.size - 1)
         }
 
-        // Initialize RecyclerView and Adapter
         setRecyclerViewAdapter(contactList)
     }
 

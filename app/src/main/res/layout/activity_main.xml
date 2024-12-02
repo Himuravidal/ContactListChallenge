@@ -32,10 +32,10 @@
         android:layout_margin="16dp"/>
 
     <CheckBox
-        android:id="@+id/cbAvailable"
+        android:id="@+id/cbStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Available"
+        android:text="Available"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPhone"
@@ -49,19 +49,28 @@
         android:hint="add contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbAvailable"
+        app:layout_constraintTop_toBottomOf="@+id/cbStatus"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/isAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Available"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addButton"
         android:layout_margin="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/isAvailable" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddContact"
