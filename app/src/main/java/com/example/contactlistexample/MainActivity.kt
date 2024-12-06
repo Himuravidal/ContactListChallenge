@@ -10,22 +10,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistexample.adapter.ContactAdapter
 import com.example.contactlistexample.data.Contact
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ContactAdapter
     private val contactList = mutableListOf<Contact>()
+    private val filteredList = mutableListOf<Contact>()
+    private var isFilterEnabled = false // Tracks filter toggle state
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val etName = findViewById<EditText>(R.id.etName)
         val etPhone = findViewById<EditText>(R.id.etPhone)
         val cbStatus = findViewById<CheckBox>(R.id.cbStatus)
-
         val addButton = findViewById<Button>(R.id.addButton)
+        val switchFilter = findViewById<SwitchMaterial>(R.id.switchFilter)
+
+        setupRecyclerView()
+
         addButton.setOnClickListener {
             val name = etName.text.toString()
             val phone = etPhone.text.toString()
@@ -36,20 +41,39 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
             val contact = Contact(name, phone, status)
             contactList.add(contact)
 
-            adapter.notifyItemInserted(contactList.size - 1)
+            if (!isFilterEnabled || status) {
+                filteredList.add(contact)
+                adapter.updateContacts(filteredList)
+            }
+
+            etName.text.clear()
+            etPhone.text.clear()
+            cbStatus.isChecked = false
         }
 
-        setRecyclerViewAdapter(contactList)
+        switchFilter.setOnCheckedChangeListener { _, isChecked ->
+            isFilterEnabled = isChecked
+            updateFilteredList()
+        }
     }
 
-    private fun setRecyclerViewAdapter(contactList: List<Contact>) {
+    private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        adapter = ContactAdapter(contactList)
+        adapter = ContactAdapter(filteredList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+    }
+
+    private fun updateFilteredList() {
+        filteredList.clear()
+        if (isFilterEnabled) {
+            filteredList.addAll(contactList.filter { it.status }) // Only available contacts
+        } else {
+            filteredList.addAll(contactList) // All contacts
+        }
+        adapter.updateContacts(filteredList)
     }
 }

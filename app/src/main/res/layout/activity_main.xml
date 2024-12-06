@@ -15,7 +15,7 @@
         android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter name"
+        android:hint="@string/enter_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/etPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Phone"
+        android:hint="@string/enter_your_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName"
@@ -35,7 +35,7 @@
         android:id="@+id/cbStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Available"
+        android:text="@string/available"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPhone"
@@ -46,21 +46,22 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="add contact"
+        android:layout_margin="16dp"
+        android:hint="@string/add_contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbStatus"
-        android:layout_margin="16dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/cbStatus" />
 
-    <Button
-        android:id="@+id/isAvailable"
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Available"
+        android:text="@string/availables"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addButton"
-        android:layout_margin="16dp"/>
+        android:layout_margin="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -70,16 +71,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isAvailable" />
+        app:layout_constraintTop_toBottomOf="@+id/switchFilter" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add Contact"
+        android:contentDescription="@string/add_contact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_input_add"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
