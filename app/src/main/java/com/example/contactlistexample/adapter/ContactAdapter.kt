@@ -8,38 +8,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistexample.R
 import com.example.contactlistexample.data.Contact
 
-// Adapter for the RecyclerView
-class ContactAdapter(private var contactList: List<Contact>) :
-    RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
+class ContactAdapter(private var contactList: List<Contact>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-    // ViewHolder class to hold item views
-    inner class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: TextView = itemView.findViewById(R.id.tvName)
-        val tvPhone: TextView = itemView.findViewById(R.id.tvPhone)
-        val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
-    }
-
-    // Inflate the layout for each item
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_contact, parent, false)
-        return ContactViewHolder(view)
-    }
-
-    // Bind data to each item view
-    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        val contact = contactList[position]
-    //    holder.tvName.text = contact.name
-    //    holder.tvPhone.text = contact.phone
-    //    holder.tvStatus.text = if (contact.isAvailable) "Available" else "Busy"
-    }
-
-    // Return the size of the contact list
-    override fun getItemCount(): Int = contactList.size
-
-    // Update the contact list and refresh the RecyclerView
     fun updateContacts(newContacts: List<Contact>) {
         contactList = newContacts
         notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val contact = contactList[position]
+        holder.bind(contact)
+    }
+
+    override fun getItemCount(): Int = contactList.size
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val nameTextView: TextView = itemView.findViewById(R.id.tvName)
+        private val phoneTextView: TextView = itemView.findViewById(R.id.tvPhone)
+        private val statusTextView: TextView = itemView.findViewById(R.id.tvStatus)
+
+        fun bind(contact: Contact) {
+            nameTextView.text = contact.name
+            phoneTextView.text = contact.phone
+            statusTextView.text = if (contact.status) "Available" else "Unavailable"
+        }
     }
 }
